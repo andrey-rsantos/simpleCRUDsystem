@@ -2,6 +2,9 @@
 
 ## Sistema CRUD (CREATE, READ, UPDATE, DELETE) simples para o gerenciamento de clientes. Este projeto foi desenvolvido com a finalidade de colocar em prática alguns dos meus conhecimentos em PHP, MySQL e HTML5. 
 Este é o primeiro projeto pessoal em PHP que posto aqui no GitHub. Como já citado anteriormente, o objetivo dele foi colocar em prática o que venho estudando sobre desenvolvimento WEB. Pretendo também personalizá-lo e usá-lo como base para alguns outros projetos futuros. 
+
+Caso você queira ver este projeto em funcionamento na prática, basta acessar o link: https://andreyrsantos.com.br/crud_base/
+
 Agradeço a atenção de quem visualizar isso. Valeeuu!!! 🙋‍♂️
 
 
