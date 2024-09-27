@@ -1,0 +1,151 @@
+===== CADASTRAR_CLIENTE: =====
+
+O botão submit tem valor padrão false.
+if(count($_POST)> 0) 
+-> indica que se o post for enviado, as variáveis são criadas
+
+
+
+if(empty($nome))
+-> Verificar se a pessoa preencheu ou não o nome (ou a variável passada).
+
+
+
+FUNCTION:
+-> Serve pra garantir que o MySQL vai receber só os números do telefone,
+assim deixando livre o usuário para escrever no formato que quiser.
+        
+    function limpar_texto($str){ 
+        return preg_replace("/[^0-9]/", "", $str); 
+    }
+
+
+
+FILTER_VAR EMAIL
+-> está validando um e-mail pela parte do servidor. Mesmo assim, é útil
+manter o input do type e-mail para validar pela parte do user e ajudar
+a equipe do front.
+
+
+
+VERIFICAÇÃO SE O INSERT NO MYSQL FUNCIONOU:
+if($insert){
+    echo "Usuário cadastrado com sucesso!";
+    unset($_POST);
+}
+-> O "unset" limpa os dados inseridos no forms, caso o cliente tenha sido
+cadastrado com sucesso no db.
+
+
+
+
+===== CLIENTES: =====
+
+A PÁGINA INDEX.PHP é onde se encontra a lista de clientes.
+
+
+$num_clientes = $clientes->rowCount();
+-> Tá servindo para contar a quantidade de clientes cadastrados, pois
+caso não haja nenhum, ele mostra isso ao usuário.
+
+
+
+*FORMATANDO O TELEFONE PARA APRESENTAR:
+https://www.php.net/manual/pt_BR/function.substr.php
+
+$telefone = "Não informado";
+        if(!empty($linha['telefone'])){
+            $ddd = substr($linha['telefone'], 0, 2);
+            $parte1 = substr($linha['telefone'], 2, 5);
+            $parte2 = substr($linha['telefone'], 7);  
+            $telefone = "($ddd) $parte1-$parte2";
+        }
+
+-> Esse código está quebrando o número para apresentá-lo no seguinte
+formato (44) 98765-4321. Caso o cliente não tenha um número, ele
+apresenta "Não Informado".
+
+
+
+*FORMATANDO DATAS PARA APRESENTAR:
+https://www.php.net/manual/en/function.date.php
+https://www.php.net/manual/pt_BR/function.strtotime.php
+
+APRESENTANDO DATA DE NASCIMENTO (MODO 1) ->
+    $data_nascimento = "Não informado";
+    if(!empty($linha['data_nascimento'])){
+        $dia = substr($linha['data_nascimento'], 8, 2);
+        $mes = substr($linha['data_nascimento'], 5, 2);
+        $ano = substr($linha['data_nascimento'], 0, 4);
+        $data_nascimento = "$dia/$mes/$ano";
+    }
+
+APRESENTANDO DATA DE NASCIMENTO (MODO 2) ->
+if($linha['data_nascimento'] != "0000-00-00"){
+    $data_nascimento = date("d/m/Y", strtotime($linha['data_nascimento']));
+}
+$data_cadastro = date("d/m/Y - H:i", strtotime($linha['data_cadastro']));
+
+APRESENTANDO DATA DE CADASTRO ->
+    $data_cadastro = date("d/m/Y - H:i", strtotime($linha['data_cadastro']));
+
+
+
+PREPARANDO O CAMPO AÇÕES PARA EDITAR/EXCLUIR ->
+<a href="editar_cliente.php?id=<?php echo $linha['id'];?>">Editar</a>
+
+
+
+
+===== EDITAR_CLIENTE: =====
+
+$id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+-> Este comando vem para pegar o id pelo método GET que foi preparada acima
+e o filter_var serve pra garantir que o ID é um número inteiro, evitando injeção.
+
+
+
+if(count($_POST) > 0){
+$nome = $_POST['nome']; 
+$email = $_POST['email']; 
+$telefone = $_POST['telefone']; 
+$data_nascimento = $_POST['data_nascimento']; 
+
+    if(empty($nome)){
+        $erro = "Preencha o nome:";
+    }
+    if(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $erro = "Preencha o email:";
+    }
+    if(!empty($telefone)){
+        $telefone = limpar_texto($telefone); 
+        if(strlen($telefone) != 11){
+            $erro = "O telefone deve ser preenchido no padrão: (44) 99999-9999";
+        }
+    }
+    if($erro) {
+        echo "<p><b>$erro<b></p>";
+    } else{
+            $update = $conectar->prepare("UPDATE clientes SET nome = :nome, email = :email, telefone = :telefone, data_nascimento = :data_nascimento
+            WHERE id = :id");
+
+            $update->bindParam(':nome', $nome);
+            $update->bindParam(':email', $email);
+            $update->bindParam(':telefone', $telefone);
+            $update->bindParam(':data_nascimento', $data_nascimento);
+            $update->bindParam(':id', $id);
+            $update->execute();
+            if($update){
+                header("Location: clientes.php");
+            }
+        }
+}
+
+-> Mantém-se o count para saber se o post (editar) foi iniciado, garantindo que
+o user não coloque informações inválidas ou retire obrigatórias.
+
+
+
+===== DELETAR_CLIENTE: =====
+PEGA O ID PELO GET PREPARADO NO LINK DA LISTAGEM ->
+$id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
