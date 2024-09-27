@@ -24,7 +24,11 @@ Na página index.php eu apresento ao usuário uma lista com todos os clientes qu
 ### Editar cliente
 Quando o usuário optar por editar um cliente, ele vai para uma tela como a de cadastro, mas com as informações já preenchidas (afinal esse cliente já existe hahaha). Aqui o usuário é livre para editar qualquer informação do cliente, desde que, ao enviar o formulário, estejam obrigatoriamente preenchidos os campos "Nome" e "E-mail".
 
+Obs: a data de nascimento aparece no formato do idioma do seu navegador.
+
 ![edicao-clientes](https://github.com/user-attachments/assets/95761a1c-3db7-421e-9b06-156a5d2d580b)
+
+
 
 
 ### Deletar cliente
