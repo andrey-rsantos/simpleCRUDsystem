@@ -2,7 +2,7 @@
 
 include_once "conexao.php";
 
-//Para excluir um cliente, vamos pegar o ID dele pelo método POST e garantir que o número (id) seja inteiro.
+//Para excluir um cliente, vamos pegar o ID dele pelo método GET e garantir que o número (id) seja inteiro.
 $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
 
