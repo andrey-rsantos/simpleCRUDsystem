@@ -3,15 +3,13 @@
 ## Sistema CRUD (CREATE, READ, UPDATE, DELETE) simples para o gerenciamento de clientes. Este projeto foi desenvolvido com a finalidade de colocar em prática alguns dos meus conhecimentos em PHP, MySQL e HTML5. 
 Este é o primeiro projeto pessoal em PHP que posto aqui no GitHub. Como já citado anteriormente, o objetivo dele foi colocar em prática o que venho estudando sobre desenvolvimento WEB. Pretendo também personalizá-lo e usá-lo como base para alguns outros projetos futuros. 
 
-Este projeto foi desenvolvido usando as versões: 
-PHP 8.2.18 🐘
-MySQL 8.3.0 🗃️
+Este projeto foi desenvolvido usando as versões:<br>
+PHP 8.2.18 🐘<br>
+MySQL 8.3.0 🗃️<br>
 PhpMyAdmin 5.2.1 🔰
 
 Agradeço a atenção de quem visualizar isso. Valeeuu!!! 🙋‍♂️
-
-
-
+<br><br>
 
 ### Cadastrar Clientes
 O projeto conta com uma tela de cadastro para que o usuário possa adicionar clientes no banco de dados. Essa etapa pede obrigatoriamente para que sejam preenchidos os campos "NOME" e "E-MAIL" da pessoa a ser cadastrada. Já o número de telefone e a data de nascimento são opcionais, sendo que a data não pode ser maior que a atual e o usuário não pode informar uma idade menor do que 15 anos. *Uma observação sobre o campo de telefone, é que este pode ser preenchido só com números ou também utilizando caracteres especiais e espaços*. Uma vez que o usuário clica no botão "Cadastrar cliente" o programa realiza algumas verificações - incluindo a sanitização dos dados enviados por meio do htmlspecialchars para evitar ataques XSS - retornando uma mensagem de erro (casa algo dê errado) ou uma mensagem de sucesso.
@@ -28,7 +26,7 @@ Na página index.php eu apresento ao usuário uma lista com todos os clientes qu
 
 
 ### Editar cliente
-Quando o usuário optar por editar um cliente, ele vai para uma tela como a de cadastro, mas com as informações já preenchidas (afinal esse cliente já existe hahaha). Aqui o usuário é livre para editar qualquer informação do cliente, desde que, ao enviar o formulário, estejam obrigatoriamente preenchidos os campos "Nome" e "E-mail". Obs: a regra de data também se aplica na hora de editar um cliente.
+Quando o usuário optar por editar um cliente, ele vai para uma tela como a de cadastro, mas com as informações já preenchidas (afinal esse cliente já existe hahaha). Aqui o usuário é livre para editar qualquer informação do cliente, desde que, ao enviar o formulário, estejam obrigatoriamente preenchidos os campos "Nome" e "E-mail". Obs: a regra de data também se aplica na hora de editar um cliente e as sanitizações do envio do formulário de edição também.
 
 ![edicao-clientes](https://github.com/user-attachments/assets/95761a1c-3db7-421e-9b06-156a5d2d580b)
 
