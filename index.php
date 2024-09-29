@@ -4,7 +4,7 @@ include_once "conexao.php";
 
 //Fazendo uma consulta no DB para visualizar a lista de clientes.
 $clientes = $conectar->query("SELECT id, nome, email, telefone, data_nascimento, data_cadastro
-FROM clientes");
+FROM clientes ORDER BY data_cadastro ASC");
 
 $num_clientes = $clientes->rowCount();
 
@@ -37,7 +37,7 @@ $num_clientes = $clientes->rowCount();
         <?php
             if($num_clientes === 0){
                 echo    "<tr>
-                            <td colspan='7'>Você não tem nenhum cliente cadastrado.</tr>
+                            <td colspan='7'>Você não tem nenhum cliente cadastrado.</td>
                         </tr>";
             } else{
                 while($linha = $clientes->fetch(PDO::FETCH_ASSOC)){ 
@@ -54,17 +54,17 @@ $num_clientes = $clientes->rowCount();
                     }
                     $data_cadastro = date("d/m/Y - H:i", strtotime($linha['data_cadastro']));
         ?>
-                <tr>
-                    <td><?php echo $linha['id'];?></td>
-                    <td><?php echo $linha['nome'];?></td>
-                    <td><?php echo $linha['email'];?></td>
-                    <td><?php echo $telefone;?></td>
-                    <td><?php echo $data_nascimento;?></td>
-                    <td><?php echo $data_cadastro;?></td>
-                    <td>
-                        <a href="editar_cliente.php?id=<?php echo $linha['id'];?>">Editar</a> - <a href="deletar_cliente.php?id=<?php echo $linha['id'];?>">Deletar</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><?php echo htmlspecialchars($linha['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($linha['nome'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($linha['email'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($telefone, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($data_nascimento, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($data_cadastro, ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td>
+                            <a href="editar_cliente.php?id=<?php echo $linha['id'];?>">Editar</a> - <a href="deletar_cliente.php?id=<?php echo $linha['id'];?>">Deletar</a>
+                        </td>
+                    </tr>
         <?php }} ?>
         </tbody>
     </table>

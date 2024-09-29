@@ -2,6 +2,12 @@
 
 include_once "conexao.php";
 
+
+// Função para sanitizar entradas de texto (impede XSS)
+function sanitizar_texto($str) {
+    return htmlspecialchars(trim($str), ENT_QUOTES, 'UTF-8');
+}
+
 //Essa função vai ser usada para manter apenas o números que o usuário digitar no campo telefone,
 //sem considerar parênteses, traços ou qualquer outra coisa.
 //É importante pra subir corretamente no DB.
@@ -16,10 +22,10 @@ $erro = false;
 //Verificando se o formulário foi enviado.
 //Caso sim, as variáveis recebem o que foi preenchido no forms por meio do método POST.
 if(count($_POST) > 0){
-$nome = $_POST['nome']; 
-$email = $_POST['email']; 
-$telefone = $_POST['telefone']; 
-$data_nascimento = $_POST['data_nascimento']; 
+$nome = sanitizar_texto($_POST['nome']); 
+$email = sanitizar_texto($_POST['email']); 
+$telefone = sanitizar_texto($_POST['telefone']); 
+$data_nascimento = sanitizar_texto($_POST['data_nascimento']); 
 
     //Aqui são feitas algumas verificações, tais como se foram preenchidos nome e email (obrigatórios),
     //além de formatar o telefone com a função limpar_texto caso o usuário tenha preenchido.
@@ -34,6 +40,25 @@ $data_nascimento = $_POST['data_nascimento'];
         $telefone = limpar_texto($telefone); 
         if(strlen($telefone) != 11){
             $erro = "O telefone deve ser preenchido no padrão: (44) 99999-9999";
+        }
+    }
+    if(!empty($data_nascimento)){
+        //Criado objeto DateTime a partir da data inserida. Depois, comparo com o dia atual e verifico se não é maior.
+        $data_nasc = DateTime::createFromFormat('Y-m-d', $data_nascimento);
+
+        if(!$data_nasc){
+            $erro = "Data de nascimento inválida!";
+        } 
+        elseif($data_nasc > new DateTime()){
+            $erro = "A data não pode ser no futuro!";
+        } 
+        else{
+            $data_hoje = new DateTime();
+            $idade = $data_hoje->diff($data_nasc)->y;
+            
+            if($idade < 15){
+                $erro = "Você não pode ser menor de 15 anos.";
+            }
         }
     }
     if($erro) {

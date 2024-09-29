@@ -21,10 +21,21 @@ assim deixando livre o usuário para escrever no formato que quiser.
 
 
 
+FUNCTION sanitizar_texto:
+-> Function com htmlspecialchars. Foi utilizada para sanitizar e evitar ataques XSS nos formulários de cadastro e edição. 
+
+
+
 FILTER_VAR EMAIL
 -> está validando um e-mail pela parte do servidor. Mesmo assim, é útil
 manter o input do type e-mail para validar pela parte do user e ajudar
 a equipe do front.
+
+
+
+VERIFICAÇÃO DATA NASCIMENTO:
+-> Com um objeto datetime e o método diff dele, consegui verificar se a data informada pelo usuário no ato do cadastro não é maior que a atual e nem menor que 15 anos de idade.
+Caso seja um ou outro, o programa apresenta uma mensagem de erro informando. Isso também é feito na página de edição.
 
 
 
