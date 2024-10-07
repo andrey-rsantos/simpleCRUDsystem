@@ -7,7 +7,8 @@ Este é o primeiro projeto pessoal em PHP que posto aqui no GitHub. Como já cit
 Este projeto foi desenvolvido usando as versões:<br>
 PHP 8.2.18 🐘<br>
 MySQL 8.3.0 🗃️<br>
-PhpMyAdmin 5.2.1 🔰
+PhpMyAdmin 5.2.1 🔰<br>
+Docker Desktop para containerização 🐋
 
 ### Como usar 
 1 - Clonar o repositório usando git clone https://github.com/andrey-rsantos/simpleCRUDsystem.git
