@@ -3,10 +3,19 @@
 ## Sistema CRUD (CREATE, READ, UPDATE, DELETE) simples para o gerenciamento de clientes. Este projeto foi desenvolvido com a finalidade de colocar em prática alguns dos meus conhecimentos em PHP, MySQL e HTML5. 
 Este é o primeiro projeto pessoal em PHP que posto aqui no GitHub. Como já citado anteriormente, o objetivo dele foi colocar em prática o que venho estudando sobre desenvolvimento WEB. Pretendo também personalizá-lo e usá-lo como base para alguns outros projetos futuros. 
 
+### Tecnologias 
 Este projeto foi desenvolvido usando as versões:<br>
 PHP 8.2.18 🐘<br>
 MySQL 8.3.0 🗃️<br>
 PhpMyAdmin 5.2.1 🔰
+
+### Como usar 
+1 - Clonar o repositório usando git clone https://github.com/andrey-rsantos/simpleCRUDsystem.git
+<br>
+2 - Abrir o CLI na pasta e digitar _docker-composer up --build_
+<br>
+3 - Dados de acesso para o PhpMyAdmin são encontrados no arquivo conexao.php
+<br><br>
 
 Agradeço a atenção de quem visualizar isso. Valeeuu!!! 🙋‍♂️
 <br><br>
